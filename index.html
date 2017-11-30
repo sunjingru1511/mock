@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    aaa
+    <script type="text/javascript">
+        function ajax(url) {
+            return new Promise(function (resolve, reject) {
+                 var handler = function () {
+                     if (xml.readyState !==4) {
+                         return;
+                     }
+                     if (xml.status === 200) {
+                         resolve(xml.responseText);
+                     } else {
+                         reject(new Error("err"));
+                     }
+                 }
+                 if (window.XMLHttpRequest) {
+                     var xml = new XMLHttpRequest();
+                 } else {
+                     var xml = new ActiveXObject("Microsoft.XMLHTTP");
+                 }
+                 xml.onreadystatechange = handler;
+                 xml.open('get',url, true);
+                 xml.send(null);
+    
+            })
+
+        }
+        ajax("http://localhost:8080/userinfo").then(function (result) {
+           console.log(result);
+        }).catch(function (error) {
+           console.log(error);
+        });
+        
+       
+       
+    </script>
+</body>
+</html>
